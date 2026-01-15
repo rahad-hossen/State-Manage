@@ -2,16 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider_learn/AddCounter.dart';
 import 'package:provider_learn/provider/counter.dart';
+import 'package:provider_learn/provider/mainCounter.dart';
+
+import 'CountProcess.dart';
 
 void main() {
   runApp(
       // const MyApp()
     MultiProvider(
-        providers: [ChangeNotifierProvider(create: (_){
-          return BalanceCalc();
-        })],
+        providers: [
+          ChangeNotifierProvider(create: (_){return BalanceCalc();}),
+          ChangeNotifierProvider(create: (_){return Counterprocess();})
+        ],
       child: const MyApp(),
-
     )
 
   );
@@ -69,6 +72,15 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 ),
               ),
+              RichText(
+                  text: TextSpan(
+                      style: TextStyle(color: Colors.black45),
+                    children: <TextSpan>[
+                      TextSpan(text: "Total Count : "),
+                      TextSpan(text: "${context.watch<Counterprocess>().Count_Total}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30,color: Colors.blue))
+                    ]
+                  )
+              ),
               SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -76,9 +88,13 @@ class _MyHomePageState extends State<MyHomePage> {
                   OutlinedButton(onPressed: () {
                     Navigator.push(context, MaterialPageRoute(builder: (context) => Add_Amount()));
                   }, child: Text("Amount Process")),
-
                 ],
               ),
+
+              OutlinedButton(onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => Count_Process()));
+              }, child: Text("Count Process")),
+
             ],
           ),
         ),

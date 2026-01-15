@@ -38,7 +38,6 @@ class Remove_Amount extends StatelessWidget{
                   },
                   child: Text("Remove")
               ),
-
             ],
           ),
         ),
