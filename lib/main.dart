@@ -46,6 +46,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
+
+    print("Run in running");
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -56,30 +58,34 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              RichText(
-                text: TextSpan(
-                  style: TextStyle(fontSize: 20,color: Colors.black45),
-                  children: <TextSpan>[
-                    TextSpan(text: "Your balance : "),
-                    TextSpan(
-                      text: "${context.watch<BalanceCalc>().Total_Balance}",
-                      style: TextStyle(
-                        fontSize: 30,
-                        color: Colors.redAccent,
-                        fontWeight: FontWeight.bold,
+              Consumer<BalanceCalc>(
+                builder: (context, value, child) =>RichText(
+                  text: TextSpan(
+                    style: TextStyle(fontSize: 20,color: Colors.black45),
+                    children: <TextSpan>[
+                      TextSpan(text: "Your balance : "),
+                      TextSpan(
+                        text: "${value.Total_Balance}",
+                        style: TextStyle(
+                          fontSize: 30,
+                          color: Colors.redAccent,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-              RichText(
-                  text: TextSpan(
-                      style: TextStyle(color: Colors.black45),
-                    children: <TextSpan>[
-                      TextSpan(text: "Total Count : "),
-                      TextSpan(text: "${context.watch<Counterprocess>().Count_Total}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30,color: Colors.blue))
-                    ]
-                  )
+              Consumer<Counterprocess>(
+                builder: (ctx, Counterproce, child) => RichText(
+                    text: TextSpan(
+                        style: TextStyle(color: Colors.black45),
+                      children: <TextSpan>[
+                        TextSpan(text: "Total Count : "),
+                        TextSpan(text: "${Counterproce.Count_Total}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30,color: Colors.blue))
+                      ],
+                    )
+                ),
               ),
               SizedBox(height: 20),
               Row(
